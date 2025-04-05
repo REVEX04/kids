@@ -6,7 +6,8 @@
 2. extract [php-8.4.5-nts-Win32-vs17-x64.zip](tools/php-8.4.5-nts-Win32-vs17-x64.zip) in C:\laragon\bin\php
 3. install [Composer-Setup.exe](tools/Composer-Setup.exe)
 4. choose C:\laragon\bin\php\php-8.4.5-nts-Win32-vs17-x64\php.exe for **Composer Setup**
-5. `composer install`
-6. `php artisan migrate`
-7. `php artisan db:seed`
-8. `php artisan serve`
+5. open laragon.exe -> Menu -> php -> php-8.4.5-nts-Win32-vs17-x64 -> start All
+6. `composer install`
+7. `php artisan migrate`
+8. `php artisan db:seed`
+9. `php artisan serve`
