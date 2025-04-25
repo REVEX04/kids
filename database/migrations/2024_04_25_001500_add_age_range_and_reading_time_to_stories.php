@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')->default(false);
+        Schema::table('stories', function (Blueprint $table) {
+            $table->string('age_range')->nullable()->after('content');
+            $table->integer('reading_time')->nullable()->after('age_range');
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_admin');
+        Schema::table('stories', function (Blueprint $table) {
+            $table->dropColumn(['age_range', 'reading_time']);
         });
     }
-};
+}; 

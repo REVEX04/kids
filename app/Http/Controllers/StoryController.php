@@ -72,6 +72,10 @@ class StoryController extends Controller
             'image_url' => 'nullable|url',
             'age_range' => 'required|string|max:50',
             'reading_time' => 'required|integer|min:1',
+            'audio_file' => 'nullable|file|mimes:mp3,wav,ogg,m4a,webm',
+            'video_file' => 'nullable|file|mimes:mp4,webm,ogg',
+            'audio_duration' => 'nullable|integer|min:1',
+            'video_duration' => 'nullable|integer|min:1',
         ]);
 
         // Handle image upload
@@ -81,6 +85,24 @@ class StoryController extends Controller
         // Handle image URL
         elseif ($request->filled('image_url')) {
             $validated['thumbnail'] = $request->input('image_url');
+        }
+
+        // Handle audio upload
+        if ($request->hasFile('audio_file')) {
+            $audioFile = $request->file('audio_file');
+            $extension = $audioFile->getClientOriginalExtension();
+            
+            // Validate file extension
+            if (!in_array(strtolower($extension), ['mp3', 'wav', 'ogg', 'm4a', 'webm'])) {
+                return back()->withErrors(['audio_file' => 'Invalid audio file format. Please upload MP3, WAV, OGG, M4A, or WEBM file.']);
+            }
+
+            $validated['audio_file'] = $audioFile->store('stories/audio', 'public');
+        }
+
+        // Handle video upload
+        if ($request->hasFile('video_file')) {
+            $validated['video_file'] = $request->file('video_file')->store('stories/video', 'public');
         }
 
         Story::create($validated);
@@ -110,6 +132,10 @@ class StoryController extends Controller
             'image_url' => 'nullable|url',
             'age_range' => 'required|string|max:50',
             'reading_time' => 'required|integer|min:1',
+            'audio_file' => 'nullable|file|mimes:mp3,wav,ogg,m4a,webm',
+            'video_file' => 'nullable|file|mimes:mp4,webm,ogg',
+            'audio_duration' => 'nullable|integer|min:1',
+            'video_duration' => 'nullable|integer|min:1',
         ]);
 
         // Handle image upload
@@ -123,6 +149,32 @@ class StoryController extends Controller
         // Handle image URL
         elseif ($request->filled('image_url')) {
             $validated['thumbnail'] = $request->input('image_url');
+        }
+
+        // Handle audio upload
+        if ($request->hasFile('audio_file')) {
+            $audioFile = $request->file('audio_file');
+            $extension = $audioFile->getClientOriginalExtension();
+            
+            // Validate file extension
+            if (!in_array(strtolower($extension), ['mp3', 'wav', 'ogg', 'm4a', 'webm'])) {
+                return back()->withErrors(['audio_file' => 'Invalid audio file format. Please upload MP3, WAV, OGG, M4A, or WEBM file.']);
+            }
+
+            // Delete old audio if exists
+            if ($story->audio_file) {
+                Storage::disk('public')->delete($story->audio_file);
+            }
+            $validated['audio_file'] = $audioFile->store('stories/audio', 'public');
+        }
+
+        // Handle video upload
+        if ($request->hasFile('video_file')) {
+            // Delete old video if exists
+            if ($story->video_file) {
+                Storage::disk('public')->delete($story->video_file);
+            }
+            $validated['video_file'] = $request->file('video_file')->store('stories/video', 'public');
         }
 
         $story->update($validated);
@@ -148,6 +200,44 @@ class StoryController extends Controller
 
         return redirect()->route('admin.stories.index')
             ->with('success', 'Story deleted successfully.');
+    }
+    
+    /**
+     * Remove media (audio or video) from a story.
+     */
+    public function removeMedia(Story $story, $type)
+    {
+        if (!in_array($type, ['audio', 'video'])) {
+            return back()->with('error', 'Invalid media type specified.');
+        }
+        
+        if ($type === 'audio' && $story->audio_file) {
+            // Delete audio file from storage
+            Storage::disk('public')->delete($story->audio_file);
+            
+            // Clear the audio fields
+            $story->audio_file = null;
+            $story->audio_duration = null;
+            $story->save();
+            
+            return redirect()->route('admin.stories.edit', $story)
+                ->with('success', 'Audio file removed successfully.');
+        }
+        
+        if ($type === 'video' && $story->video_file) {
+            // Delete video file from storage
+            Storage::disk('public')->delete($story->video_file);
+            
+            // Clear the video fields
+            $story->video_file = null;
+            $story->video_duration = null;
+            $story->save();
+            
+            return redirect()->route('admin.stories.edit', $story)
+                ->with('success', 'Video file removed successfully.');
+        }
+        
+        return back()->with('error', 'No media file found to remove.');
     }
 
     // Admin methods will go here...

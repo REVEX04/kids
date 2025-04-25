@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,10 @@ Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->
 Route::get('/stories/{story:slug}', [StoryController::class, 'show'])->name('stories.show');
 Route::post('/stories/{story}/rate', [StoryController::class, 'rate'])->name('stories.rate');
 
+// Games routes
+Route::get('/games', [GameController::class, 'index'])->name('games.index');
+Route::get('/games/{game:slug}', [GameController::class, 'show'])->name('games.show');
+
 // Admin routes
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -44,4 +49,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::get('/stories/{story}/edit', [StoryController::class, 'edit'])->name('stories.edit');
     Route::put('/stories/{story}', [StoryController::class, 'update'])->name('stories.update');
     Route::delete('/stories/{story}', [StoryController::class, 'destroy'])->name('stories.destroy');
+    Route::get('/stories/{story}/remove-media/{type}', [StoryController::class, 'removeMedia'])->name('stories.remove-media');
+
+    // Games
+    Route::get('/games', [GameController::class, 'adminIndex'])->name('games.index');
+    Route::get('/games/create', [GameController::class, 'create'])->name('games.create');
+    Route::post('/games', [GameController::class, 'store'])->name('games.store');
+    Route::get('/games/{game}/edit', [GameController::class, 'edit'])->name('games.edit');
+    Route::put('/games/{game}', [GameController::class, 'update'])->name('games.update');
+    Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
+    
+    // Game content management
+    Route::get('/games/{game}/content', [GameController::class, 'manageContent'])->name('games.content');
+    Route::put('/games/{game}/content', [GameController::class, 'updateContent'])->name('games.content.update');
+    Route::post('/games/{game}/upload', [GameController::class, 'uploadFile'])->name('games.upload');
 });

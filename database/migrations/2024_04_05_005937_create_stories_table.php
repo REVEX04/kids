@@ -24,6 +24,12 @@ class CreateStoriesTable extends Migration
             $table->integer('rating_count')->default(0);
             $table->boolean('is_published')->default(false);
             $table->timestamps();
+            $table->string('audio_file')->nullable();
+            $table->string('audio_duration')->nullable();
+            $table->string('audio_url')->nullable();
+            $table->string('video_file')->nullable();
+            $table->string('video_duration')->nullable();
+            $table->string('video_url')->nullable();
         });
     }
 

@@ -25,5 +25,23 @@
                 </div>
             </a>
         @endforeach
+        
+         <!-- Add Games Card -->
+         {{-- Removing this card as requested --}}
+         {{-- <a href="{{ route('games.index') }}" 
+            class="block p-6 rounded-lg shadow-lg transition-transform hover:transform hover:scale-105 bg-gradient-to-br from-teal-400 to-cyan-500">
+             <div class="text-white">
+                 <div class="flex items-center mb-4">
+                     <span class="text-3xl mr-4">🎮</span> <!-- Gamepad Icon -->
+                     <h2 class="text-2xl font-bold">Educational Games</h2>
+                 </div>
+                 <p class="text-white/90">Play fun games and learn new things!</p>
+                 <div class="mt-4 text-sm">
+                      Flashcards, Math, Coloring & More!
+                 </div>
+             </div>
+         </a> --}}
+         <!-- End Games Card -->
+
     </div>
 @endsection

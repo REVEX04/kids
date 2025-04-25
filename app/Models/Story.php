@@ -16,7 +16,15 @@ class Story extends Model
         'description',
         'content',
         'thumbnail',
-        'is_published'
+        'is_published',
+        'audio_file',
+        'video_file',
+        'audio_duration',
+        'video_duration',
+        'audio_url',
+        'video_url',
+        'age_range',
+        'reading_time'
     ];
 
     protected $casts = [

@@ -35,6 +35,7 @@
                     <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
                     <select name="category_id" id="category_id" required
                             class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Select a category</option>
                         @foreach(\App\Models\Category::all() as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', $story->category_id) == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
@@ -51,7 +52,7 @@
 
                 <div>
                     <label for="age_range" class="block text-sm font-medium text-gray-700">Age Range</label>
-                    <input type="text" name="age_range" id="age_range" value="{{ old('age_range', $story->age_range) }}" required
+                    <input type="text" name="age_range" id="age_range" value="{{ old('age_range', $story->age_range) }}" required placeholder="e.g., 5-8 years"
                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
 
@@ -85,10 +86,75 @@
                     <p class="mt-1 text-sm text-gray-500">Enter a direct link to an image (will be used if no file is uploaded)</p>
                 </div>
 
+                <!-- Audio Upload Field -->
                 <div>
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Update Story
-                    </button>
+                    <label for="audio_file" class="block text-sm font-medium text-gray-700">Audio File</label>
+                    @if($story->audio_file)
+                        <div class="mb-2 border rounded-lg p-3 bg-gray-50">
+                            <audio controls class="w-full mb-2">
+                                <source src="{{ asset('storage/' . $story->audio_file) }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm text-gray-600">{{ basename($story->audio_file) }}</span>
+                                <a href="{{ route('admin.stories.remove-media', ['story' => $story->id, 'type' => 'audio']) }}" 
+                                   onclick="return confirm('Are you sure you want to remove this audio file?')"
+                                   class="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded">
+                                    Remove Audio
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                    <input type="file" name="audio_file" id="audio_file" accept="audio/*"
+                           class="mt-1 block w-full shadow-sm sm:text-sm">
+                    <p class="mt-1 text-sm text-gray-500">Upload an audio file (MP3, WAV, OGG)</p>
+                </div>
+
+                <div>
+                    <label for="audio_duration" class="block text-sm font-medium text-gray-700">Audio Duration (seconds)</label>
+                    <input type="number" name="audio_duration" id="audio_duration" value="{{ old('audio_duration', $story->audio_duration) }}" min="1"
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <!-- Video Upload Field -->
+                <div>
+                    <label for="video_file" class="block text-sm font-medium text-gray-700">Video File</label>
+                    @if($story->video_file)
+                        <div class="mb-2 border rounded-lg p-3 bg-gray-50">
+                            <video controls class="w-full rounded-lg mb-2">
+                                <source src="{{ asset('storage/' . $story->video_file) }}" type="video/mp4">
+                                Your browser does not support the video element.
+                            </video>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm text-gray-600">{{ basename($story->video_file) }}</span>
+                                <a href="{{ route('admin.stories.remove-media', ['story' => $story->id, 'type' => 'video']) }}"
+                                   onclick="return confirm('Are you sure you want to remove this video file?')"
+                                   class="bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-3 rounded">
+                                    Remove Video
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                    <input type="file" name="video_file" id="video_file" accept="video/*"
+                           class="mt-1 block w-full shadow-sm sm:text-sm">
+                    <p class="mt-1 text-sm text-gray-500">Upload a video file (MP4, WebM, OGG)</p>
+                </div>
+
+                <div>
+                    <label for="video_duration" class="block text-sm font-medium text-gray-700">Video Duration (seconds)</label>
+                    <input type="number" name="video_duration" id="video_duration" value="{{ old('video_duration', $story->video_duration) }}" min="1"
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <div class="pt-4 border-t border-gray-200">
+                    <div class="flex justify-between">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Update Story
+                        </button>
+                        <a href="{{ route('stories.show', $story) }}" target="_blank" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Preview Story
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>

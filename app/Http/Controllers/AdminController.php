@@ -8,6 +8,6 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return redirect()->route('admin.categories.index');
+        return view('admin.dashboard');
     }
 } 

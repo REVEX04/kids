@@ -75,6 +75,34 @@
                     <p class="mt-1 text-sm text-gray-500">Enter a direct link to an image (will be used if no file is uploaded)</p>
                 </div>
 
+                <!-- Audio Upload Field -->
+                <div>
+                    <label for="audio_file" class="block text-sm font-medium text-gray-700">Audio File</label>
+                    <input type="file" name="audio_file" id="audio_file" accept="audio/*"
+                           class="mt-1 block w-full shadow-sm sm:text-sm">
+                    <p class="mt-1 text-sm text-gray-500">Upload an audio file (MP3, WAV, OGG)</p>
+                </div>
+
+                <div>
+                    <label for="audio_duration" class="block text-sm font-medium text-gray-700">Audio Duration (seconds)</label>
+                    <input type="number" name="audio_duration" id="audio_duration" value="{{ old('audio_duration') }}" min="1"
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
+                <!-- Video Upload Field -->
+                <div>
+                    <label for="video_file" class="block text-sm font-medium text-gray-700">Video File</label>
+                    <input type="file" name="video_file" id="video_file" accept="video/*"
+                           class="mt-1 block w-full shadow-sm sm:text-sm">
+                    <p class="mt-1 text-sm text-gray-500">Upload a video file (MP4, WebM, OGG)</p>
+                </div>
+
+                <div>
+                    <label for="video_duration" class="block text-sm font-medium text-gray-700">Video Duration (seconds)</label>
+                    <input type="number" name="video_duration" id="video_duration" value="{{ old('video_duration') }}" min="1"
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+
                 <div>
                     <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Create Story
