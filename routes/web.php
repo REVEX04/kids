@@ -6,6 +6,7 @@ use App\Http\Controllers\StoryController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AnimeauxController;
 use Illuminate\Support\Facades\Route;
 
 // Auth routes
@@ -29,6 +30,11 @@ Route::post('/stories/{story}/rate', [StoryController::class, 'rate'])->name('st
 // Games routes
 Route::get('/games', [GameController::class, 'index'])->name('games.index');
 Route::get('/games/{game:slug}', [GameController::class, 'show'])->name('games.show');
+
+// Routes publiques pour les animaux
+Route::get('/animeaux', [AnimeauxController::class, 'index'])->name('animeaux.index');
+Route::get('/animeaux/type/{type}', [AnimeauxController::class, 'type'])->name('animeaux.type');
+Route::get('/animeaux/{animal}', [AnimeauxController::class, 'show'])->name('animeaux.show');
 
 // Admin routes
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function () {
@@ -63,4 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::get('/games/{game}/content', [GameController::class, 'manageContent'])->name('games.content');
     Route::put('/games/{game}/content', [GameController::class, 'updateContent'])->name('games.content.update');
     Route::post('/games/{game}/upload', [GameController::class, 'uploadFile'])->name('games.upload');
+
+    // Routes administratives pour les animaux
+    Route::resource('animeaux', AnimeauxController::class);
 });

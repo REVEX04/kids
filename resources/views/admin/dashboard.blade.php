@@ -4,7 +4,7 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Admin Dashboard</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Categories Management Card -->
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
             <div class="p-6">
@@ -60,6 +60,27 @@
                 <div class="space-x-2">
                     <a href="{{ route('admin.games.index') }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
                         View All Games
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animaux Management Card -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Animaux</h2>
+                    <a href="{{ route('admin.animeaux.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm transition-colors">
+                        Add New
+                    </a>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Gérer la section des animaux pour les enfants.</p>
+                <div class="space-x-2">
+                    <a href="{{ route('admin.animeaux.index') }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        Voir tous les animaux
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
