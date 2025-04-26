@@ -86,3 +86,45 @@
         </a>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    // Background image handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const bgImageInput = document.getElementById('bgImage');
+        
+        // Use the background image from the public directory
+        const backgroundImagePath = "{{ asset('images/Background/nature-landscape-illustration-with-a-cute-and-colorful-design-suitable-for-kids-background-free-vector.jpg') }}";
+        
+        // Don't try to access local files directly anymore - use public assets
+        document.body.style.backgroundImage = `url('${backgroundImagePath}')`;
+        
+        // Handle file selection
+        bgImageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.body.style.backgroundImage = `url('${e.target.result}')`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                    
+                    // Store in local storage to persist across page refreshes
+                    localStorage.setItem('backgroundImage', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Check if we have a saved background
+        const savedBg = localStorage.getItem('backgroundImage');
+        if (savedBg) {
+            document.body.style.backgroundImage = `url('${savedBg}')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundAttachment = 'fixed';
+        }
+    });
+</script>
+@endpush

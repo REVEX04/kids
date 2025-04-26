@@ -39,11 +39,19 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: url('{{ asset('images/Background/nature-landscape-illustration-with-a-cute-and-colorful-design-suitable-for-kids-background-free-vector.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         
         .dark body {
             background-color: #1a1a1a;
             color: #ffffff;
+            background-image: url('{{ asset('images/Background/nature-landscape-illustration-with-a-cute-and-colorful-design-suitable-for-kids-background-free-vector.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         
         .nav-item {

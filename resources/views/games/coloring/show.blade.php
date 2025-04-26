@@ -16,8 +16,46 @@
         </div>
 
         <!-- Coloring Container -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div class="flex flex-col lg:flex-row gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-6">
+            <!-- Canvas Area -->
+            <div class="col-span-2 bg-white rounded-xl shadow-lg p-4 mb-6 md:mb-0">
+                <div class="canvas-container mb-4">
+                    <canvas id="drawingCanvas" class="w-full rounded shadow-sm"></canvas>
+                </div>
+                
+                <!-- Custom Background Upload -->
+                <div class="flex justify-between mb-4">
+                    <div>
+                        <label class="flex items-center px-4 py-2 bg-indigo-100 text-indigo-700 rounded-md cursor-pointer hover:bg-indigo-200 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Change Background
+                            <input type="file" id="customBackground" class="hidden" accept="image/*">
+                        </label>
+                        <div class="mt-2 text-xs text-gray-500">
+                            <p>Note: Browser security prevents direct access to files on your computer.</p>
+                            <p>Please use this button to select Desktop/test.jpg</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        <button id="clearDrawing" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Clear
+                        </button>
+                        
+                        <button id="saveDrawing" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Save
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- Tools Panel -->
                 <div class="lg:w-1/4 bg-gray-50 p-4 rounded-lg shadow-inner">
                     <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
@@ -81,45 +119,37 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Canvas Container -->
-                <div class="lg:w-3/4 relative">
-                    <div class="canvas-container bg-white rounded-lg border-2 border-purple-100 shadow-inner overflow-hidden">
-                        <canvas id="drawingCanvas" class="w-full h-auto cursor-crosshair"></canvas>
-                    </div>
-                    <div class="mt-4 text-sm text-gray-500 italic text-center">Click and drag to draw on the canvas!</div>
-                </div>
             </div>
-        </div>
 
-        <!-- Tips Box -->
-        <div class="bg-white rounded-xl shadow-lg p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path>
-                </svg>
-                Coloring Tips
-            </h3>
-            <ul class="text-gray-600 text-sm space-y-2">
-                <li class="flex items-start">
-                    <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            <!-- Tips Box -->
+            <div class="col-span-1 bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path>
                     </svg>
-                    Start with lighter colors first, then add darker details
-                </li>
-                <li class="flex items-start">
-                    <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                    </svg>
-                    Use smaller brush sizes for details and larger ones for filling
-                </li>
-                <li class="flex items-start">
-                    <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                    </svg>
-                    Don't forget to save your drawing when you're finished!
-                </li>
-            </ul>
+                    Coloring Tips
+                </h3>
+                <ul class="text-gray-600 text-sm space-y-2">
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        Start with lighter colors first, then add darker details
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        Use smaller brush sizes for details and larger ones for filling
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-4 h-4 text-purple-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        Don't forget to save your drawing when you're finished!
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -248,10 +278,8 @@
             canvas.height = rect.width * 0.75; // 4:3 aspect ratio
             console.log("Canvas resized to:", canvas.width, "x", canvas.height);
             
-            // Redraw background image if available
-            if (content.backgroundImage) {
-                loadBackgroundImage(content.backgroundImage);
-            }
+            // Load the specific background image from Desktop/test.jpg
+            loadBackgroundImage('file:///C:/Users/Administrateur/Desktop/test.jpg');
         }
         
         // Initial resize
@@ -279,6 +307,7 @@
                 ctx.font = '16px Arial';
                 ctx.textAlign = 'center';
                 ctx.fillText('Error loading image. Try again later.', canvas.width/2, canvas.height/2);
+                alert('Could not load image from ' + src + '. Browser security may prevent loading local files directly. Please use the "Change Background" button instead.');
             };
             
             try {
@@ -289,15 +318,17 @@
             }
         }
         
-        // If content includes a background image, load it
-        if (content.backgroundImage) {
-            loadBackgroundImage(content.backgroundImage);
-        } else {
-            // Default white background
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            console.log("No background image found, using white background");
-        }
+        // Custom background image upload
+        $('#customBackground').on('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                loadBackgroundImage(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
         
         // Drawing functions
         function startDrawing(e) {
