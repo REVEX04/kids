@@ -141,6 +141,14 @@
                          <span class="tooltip-text">Play fun games!</span>
                      </a>
                      <!-- End Games Link -->
+
+                    <!-- Add Animaux Link -->
+                     <a href="{{ route('animeaux.index') }}" class="nav-item flex items-center space-x-1 tutorial-tip">
+                         <span class="text-xl">🦁</span>
+                         <span>Animaux</span>
+                         <span class="tooltip-text">Découvre le monde des animaux!</span>
+                     </a>
+                     <!-- End Animaux Link -->
                     
                     @auth
                         @if(auth()->user()->is_admin)
